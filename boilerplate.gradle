@@ -1,8 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 
-if(!project.java) {
-  project.ext.set("java, 8");
+if(!project.ext.has('java')) {
+  project.ext.set("java", "8");
 }
 
 sourceCompatibility = "1.$project.java"
