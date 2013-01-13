@@ -8,6 +8,28 @@ if(!project.ext.has('java')) {
 sourceCompatibility = "1.$project.java"
 targetCompatibility = "1.$project.java"
 
+
+//generated sources
+
+def genSrcDir = 'src/gen/main'
+def genTestSrcDir = 'src/gen/test'
+
+[genSrcDir, genTestSrcDir].each{dir -> file(dir).mkdirs()}
+
+idea {
+  module {
+    sourceDirs += file(genSrcDir)
+    testSourceDirs += file(genTestSrcDir)
+  }
+}
+compileJava.options.compilerArgs = ['-s', genSrcDir]
+compileTestJava.options.compilerArgs = ['-s', genTestSrcDir]
+
+clean << {
+  delete 'gen'
+}
+
+
 repositories {
     mavenCentral()
 }
